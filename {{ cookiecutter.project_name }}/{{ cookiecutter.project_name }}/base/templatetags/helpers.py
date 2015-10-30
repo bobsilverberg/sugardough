@@ -5,7 +5,22 @@ except ImportError:
     import urlparse
 
 from django_jinja import library
+from django.utils import six
+from django.utils.encoding import smart_text
 from django.utils.http import urlencode
+
+import jinja2
+
+
+@library.filter
+def fe(s, *args, **kwargs):
+    """Format a safe string with potentially unsafe arguments, then return a
+    safe string."""
+    s = six.text_type(s)
+    args = [jinja2.escape(smart_text(v)) for v in args]
+    for k in kwargs:
+        kwargs[k] = jinja2.escape(smart_text(kwargs[k]))
+    return jinja2.Markup(s.format(*args, **kwargs))
 
 
 @library.global_function
