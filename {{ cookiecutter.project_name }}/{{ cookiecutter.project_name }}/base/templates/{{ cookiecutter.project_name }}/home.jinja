@@ -40,6 +40,7 @@
     {% endraw %}
     <footer>
       {% raw %}
+        {{ 'DEBUG setting: {debug}'|fe(debug=settings.DEBUG) }}
         {{ thisyear() }}
       {% endraw %}
     </footer>
