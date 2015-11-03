@@ -11,7 +11,7 @@ class HomeTests(TestCase):
 
     def test_fe_filter(self):
         response = self.client.get(reverse('home'))
-        assert 'DEBUG setting: {0}'.format(settings.DEBUG) in response.content
+        assert 'DEBUG setting: {0}'.format(settings.DEBUG).encode() in response.content
 
 
 class TestContribute(TestCase):
